@@ -1,77 +1,77 @@
 (function() {
-		'use strict';
+	'use strict';
 
-		var $startStopwatch = document.getElementById('startStopwatch');
-		var $stopStopwatch = document.getElementById('stopStopwatch');
-		var $resetStopwatch = document.getElementById('resetStopwatch');
+	var $startStopwatch = document.getElementById('startStopwatch');
+	var $stopStopwatch = document.getElementById('stopStopwatch');
+	var $resetStopwatch = document.getElementById('resetStopwatch');
 
-		var $minutes = document.getElementById('minutes');
-		var $seconds = document.getElementById('seconds');
-		var $milliseconds = document.getElementById('milliseconds');
+	var $minutes = document.getElementById('minutes');
+	var $seconds = document.getElementById('seconds');
+	var $milliseconds = document.getElementById('milliseconds');
 
-		var minutes = 0;
-		var seconds = 0;
-		var milliseconds = 0;
+	var minutes = 0;
+	var seconds = 0;
+	var milliseconds = 0;
 
-		var isRunning = false;
+	var isRunning = false;
 
-		function start() {
-			isRunning = true;
-			runStopwatch();
-		}
+	function start() {
+		isRunning = true;
+		runStopwatch();
+	}
 
-		function stop() {
-			isRunning = false;
-		}
+	function stop() {
+		isRunning = false;
+	}
 
-		function reset() {
-			stop();
-			minutes = 0;
-			seconds = 0;
-			milliseconds = 0;
-			$minutes.innerHTML = '00';
-			$seconds.innerHTML = '00';
-			$milliseconds.innerHTML = '00';
-		}
+	function reset() {
+		stop();
+		minutes = 0;
+		seconds = 0;
+		milliseconds = 0;
+		$minutes.innerHTML = '00';
+		$seconds.innerHTML = '00';
+		$milliseconds.innerHTML = '00';
+	}
 
-		function runStopwatch() {
-			var timer = setInterval(function() {
-				if (isRunning) {
-					milliseconds++;						
-					if (milliseconds === 100) {						
-						// reset milliseconds
-						milliseconds = 0;
-						$milliseconds.innerHTML = 0;
-						if (seconds === 59) {							
-							// reset second
-							seconds = 0;
-							$seconds.innerHTML = '00';
-							// add to minute						
-							minutes++;
-							$minutes.innerHTML = addTime(minutes);
-						} else {
-							// add to seconds
-							seconds++;
-							$seconds.innerHTML = addTime(seconds);												
-						}	
+	function runStopwatch() {
+		var timer = setInterval(function() {
+			if (isRunning) {
+				milliseconds++;						
+				if (milliseconds === 100) {						
+					// reset milliseconds
+					milliseconds = 0;
+					$milliseconds.innerHTML = 0;
+					if (seconds === 59) {							
+						// reset second
+						seconds = 0;
+						$seconds.innerHTML = '00';
+						// add to minute						
+						minutes++;
+						$minutes.innerHTML = addTime(minutes);
 					} else {
-						$milliseconds.innerHTML = addTime(milliseconds);
-					}
+						// add to seconds
+						seconds++;
+						$seconds.innerHTML = addTime(seconds);												
+					}	
 				} else {
-					clearInterval(timer);
+					$milliseconds.innerHTML = addTime(milliseconds);
 				}
-			}, 10);		
-		}
-
-		function addTime(time) {
-			if (time < 10) {
-				return '0' + time;
+			} else {
+				clearInterval(timer);
 			}
-			return time;
+		}, 10);		
+	}
+
+	function addTime(time) {
+		if (time < 10) {
+			return '0' + time;
 		}
+		return time;
+	}
 
-		$startStopwatch.addEventListener('click', start);
-		$stopStopwatch.addEventListener('click', stop);
-		$resetStopwatch.addEventListener('click', reset);
+	$startStopwatch.addEventListener('click', start);
+	$stopStopwatch.addEventListener('click', stop);
+	$resetStopwatch.addEventListener('click', reset);
 
-	})();
+})();
